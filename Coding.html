@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Formulir HTML ke Google Sheets</title>
+</head>
+<body>
+  <form id="myForm">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br>
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email"><br>
+    <label for="message">Message:</label><br>
+    <textarea id="message" name="message"></textarea><br>
+    <button type="button" onclick="submitForm()">Submit</button>
+  </form>
+
+  <script>
+    function submitForm() {
+      var formData = {
+        'name': document.getElementById('name').value,
+        'email': document.getElementById('email').value,
+        'message': document.getElementById('message').value
+      };
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "https://script.google.com/macros/s/AKfycbwu1UQg02ehg0C3aEFpPEgVmsngujYHAeXoIAGQq4oFy_vPibcHZfa6WwjUEiEI8njH/exec");  // Ganti dengan URL Web App Anda
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.send(JSON.stringify(formData));
+      
+      xhr.onload = function() {
+        if (xhr.status == 200) {
+          alert('Data berhasil dikirim!');
+        } else {
+          alert('Terjadi kesalahan. Coba lagi.');
+        }
+      };
+    }
+  </script>
+</body>
+</html>
